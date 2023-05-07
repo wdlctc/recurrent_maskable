@@ -14,10 +14,10 @@ To install RecurrentMaskablePPO, follow the steps below:
 
 1. Make sure you have Python 3.7 or later installed on your system. You can download the latest version from the [official Python website](https://www.python.org/downloads/).
 
-2. Install stable-baselines3 and stable-baselines3-contrib:
+2. Install stable-baselines3-contrib using requirements.txt:
 
 ```bash
-pip install stable-baselines3 stable-baselines3-contrib
+pip install -r requirements.txt
 ```
 
 3. Clone this repository:

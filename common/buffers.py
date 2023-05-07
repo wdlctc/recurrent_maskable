@@ -194,7 +194,6 @@ class RecurrentMaskableRolloutBuffer(RolloutBuffer):
 
     def get(self, batch_size: Optional[int] = None) -> Generator[RecurrentMaskableRolloutBufferSamples, None, None]:
         assert self.full, "Rollout buffer must be full before sampling from it"
-        indices = np.random.permutation(self.buffer_size * self.n_envs)
 
         # Prepare the data
         if not self.generator_ready:
@@ -291,7 +290,7 @@ class RecurrentMaskableRolloutBuffer(RolloutBuffer):
             lstm_states=RNNStates(lstm_states_pi, lstm_states_vf),
             episode_starts=self.pad_and_flatten(self.episode_starts[batch_inds]),
             mask=self.pad_and_flatten(np.ones_like(self.returns[batch_inds])),
-            action_masks=self.pad(self.action_masks[batch_inds].reshape(-1, self.mask_dims)),
+            action_masks=self.pad(self.action_masks[batch_inds]).reshape((padded_batch_size,) + self.action_masks.shape[1:])
         )
 
 
@@ -455,5 +454,5 @@ class RecurrentMaskableDictRolloutBuffer(DictRolloutBuffer):
             lstm_states=RNNStates(lstm_states_pi, lstm_states_vf),
             episode_starts=self.pad_and_flatten(self.episode_starts[batch_inds]),
             mask=self.pad_and_flatten(np.ones_like(self.returns[batch_inds])),
-            action_masks=self.pad(self.action_masks[batch_inds].reshape(-1, self.mask_dims)),
+            action_masks=self.pad(self.action_masks[batch_inds]).reshape((padded_batch_size,) + self.action_masks.shape[1:])
         )

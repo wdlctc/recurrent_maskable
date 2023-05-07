@@ -1,0 +1,2 @@
+pip install sb3-contrib==1.8.0
+pip install pyglet==2.0.6
